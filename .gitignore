@@ -2,3 +2,7 @@
 OpenSpyder.bat
 #Ignore the Spyder project files
 .spyproject/*
+.spyproject/config/workspace.ini
+.spyproject/config/backups/workspace.ini.bak
+*.ini
+.spyproject/config/workspace.ini
