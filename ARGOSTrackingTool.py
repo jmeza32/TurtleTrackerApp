@@ -25,7 +25,7 @@ file_object.close()
 for lineString in line_list:
     
     #Check to see if the lineString is a data line
-    if lineString[0] == "#" or lineString[0] == 'u':  #Could also use "if not lineString[0] in ('#','u')
+    if lineString[0] in ('#','u'):  #Could also use "if lineString[0] == "#" or lineString[0] == 'u'"
         continue
 
     #Spliting lineString into a list of items
