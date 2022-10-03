@@ -29,7 +29,7 @@ date_dict = {}
 
 location_dict = {}
 
-#Extracte one data line into a variable
+#Extract one data line into a variable
 for lineString in line_list:
     
     #Check to see if the lineString is a data line
@@ -39,7 +39,7 @@ for lineString in line_list:
     #Split lineString into a list of items
     lineData = lineString.split()
 
-    # Assign variables to each item on the list
+    #Assign variables to each item on the list
     record_id = lineData[0]   # ARGOS tracking record ID
     obs_date = lineData[2]   # Observation date
     obs_lc = lineData[4]       # Observation Location Class
@@ -54,12 +54,16 @@ for lineString in line_list:
 #Create list to hold keys
 matching_keys = []
 
-# Loop through all key-value pairs in the date_dict
+#Loop through all key-value pairs in the date_dict
 for the_key, the_value in date_dict.items():
     #See if the date (the value) matches the user date
     if the_value == user_date:
         #Add matching keys to list
         matching_keys.append(the_key)
+        
+# Report whether no keys were found
+if len(matching_keys) == 0:
+    print(f"Sara was not located on {user_date}")
 
 #Reveal locations for each key in matching_keys
 for matching_key in matching_keys:
