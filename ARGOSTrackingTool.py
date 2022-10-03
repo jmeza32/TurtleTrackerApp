@@ -9,31 +9,34 @@
 # Date:   Fall 2022
 #----
 
-#Creating a variable pointing to the data
+#Ask the user for a date in the specified format
+user_date = input("Enter a date (M/D/YYYY):")
+
+#Create a variable pointing to the data
 file_name = 'data/raw/sara.txt'
 
-#Creating a file object from the file name
+#Create a file object from the file name
 file_object = open(file = file_name, mode = 'r')
 
-#Reading file contents into a list
+#Read file contents into a list
 line_list = file_object.readlines()
 
 #Close file for safety
 file_object.close()
 
-#Creating Empty File Dictionaries
+#Create empty file dictionaries
 date_dict = {}
 
 location_dict = {}
 
-#Extracting one data line into a variable
+#Extracte one data line into a variable
 for lineString in line_list:
     
     #Check to see if the lineString is a data line
     if lineString[0] in ('#','u'):  #Could also use "if lineString[0] == "#" or lineString[0] == 'u'"
         continue
 
-    #Spliting lineString into a list of items
+    #Split lineString into a list of items
     lineData = lineString.split()
 
     # Assign variables to each item on the list
@@ -43,12 +46,22 @@ for lineString in line_list:
     obs_lat = lineData[6]     # Observation Latitude
     obs_lon = lineData[7]     # Observation Longitude
     
-    #Populating Dictionaries, if LC criteria is met
+    #Populate Dictionaries, if LC criteria is met
     if obs_lc in ('1', '2', '3'):
         date_dict[record_id] = obs_date
         location_dict[record_id] = (obs_lat, obs_lon)
+        
+#Create list to hold keys
+matching_keys = []
 
-    # Print information to the use
-    #print (f"Record {record_id} indicates Sara was seen at {obs_lat}N and {obs_lon}W on {obs_date}")
+# Loop through all key-value pairs in the date_dict
+for the_key, the_value in date_dict.items():
+    #See if the date (the value) matches the user date
+    if the_value == user_date:
+        #Add matching keys to list
+        matching_keys.append(the_key)
 
-
+#Reveal locations for each key in matching_keys
+for matching_key in matching_keys:
+    obs_lat, obs_lon = location_dict[matching_key]
+    print(f"Record {matching_key} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {user_date}")
